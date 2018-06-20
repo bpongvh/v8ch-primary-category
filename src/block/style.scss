@@ -4,11 +4,16 @@
  * CSS for both Frontend+Backend.
  */
 
-.wp-block-cgb-block-v8ch-primary-category  {
-  background: $red;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
+.wp-block-v8ch-primary-category  {
+  .flex {
+    display: flex;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  & .spinner {
+    float: none;
+  }
 }
