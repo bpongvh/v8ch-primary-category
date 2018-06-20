@@ -10,14 +10,18 @@
 	"description": "Creates a Gutenberg block for setting and displaying primary categories assigned to posts",
 	"license": "MIT",
 	"name": "v8ch-primary-category",
-  "repository" :
-  { "type": "git",
-    "url": "https://github.com/V8CH/v8ch-primary-category"
-  },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/V8CH/v8ch-primary-category"
+	},
 	"version": "0.0.1",
 	"scripts": {
 		"start": "cgb-scripts start",
 		"build": "cgb-scripts build",
 		"eject": "cgb-scripts eject"
+	},
+	"devDependencies": {
+		"eslint": "^4.19.1",
+		"eslint-plugin-wordpress": "^0.1.0"
 	}
 }
