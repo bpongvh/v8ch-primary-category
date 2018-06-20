@@ -3,7 +3,6 @@
 	"parser": "babel-eslint",
 	"extends": [
 		"wordpress",
-		"plugin:wordpress/esnext",
 		"plugin:react/recommended",
 		"plugin:jsx-a11y/recommended",
 		"plugin:jest/recommended"
@@ -27,7 +26,7 @@
 		"window": true,
 		"document": true
 	},
-	"plugins": ["react", "jsx-a11y", "jest"],
+	"plugins": ["html", "jsx-a11y", "jest", "react"],
 	"settings": {
 		"react": {
 			"pragma": "wp"
@@ -59,6 +58,7 @@
 		"jsx-quotes": "error",
 		"key-spacing": "error",
 		"keyword-spacing": "error",
+		"linebreak-style": "off",
 		"lines-around-comment": "off",
 		"no-alert": "error",
 		"no-bitwise": "error",
