@@ -1,13 +1,23 @@
 {
-  "name": "v8ch-primary-category-cgb-guten-block",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "start": "cgb-scripts start",
-    "build": "cgb-scripts build",
-    "eject": "cgb-scripts eject"
+	"author": {
+		"name": "Robert Pratt",
+		"email": "bpong@v8ch.com",
+		"url": "https://www.v8ch.com/"
+	},
+	"dependencies": {
+		"cgb-scripts": "1.9.7"
+	},
+	"description": "Creates a Gutenberg block for setting and displaying primary categories assigned to posts",
+	"license": "MIT",
+	"name": "v8ch-primary-category",
+  "repository" :
+  { "type": "git",
+    "url": "https://github.com/V8CH/v8ch-primary-category"
   },
-  "dependencies": {
-    "cgb-scripts": "1.9.7"
-  }
+	"version": "0.0.1",
+	"scripts": {
+		"start": "cgb-scripts start",
+		"build": "cgb-scripts build",
+		"eject": "cgb-scripts eject"
+	}
 }
