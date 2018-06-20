@@ -3,6 +3,7 @@ import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const { Spinner, withAPIData } = wp.components;
 
 /**
  * Register the block
@@ -12,31 +13,35 @@ const { registerBlockType } = wp.blocks;
  * @param  {Object} settings
  * @return {?WPBlock}
  */
-registerBlockType( 'eslint-config-prettier', {
-	title: __( 'V8CH Primary Category' ),
-	icon: 'category',
+registerBlockType( 'v8ch/primary-category', {
 	category: 'common',
+	icon: 'category',
 	keywords: [ __( 'V8CH' ), __( 'category' ), __( 'primary' ) ],
+	title: __( 'V8CH Primary Category' ),
 
-	edit: function( props ) {
-		// Creates a <p class='wp-block-cgb-block-v8ch-primary-category'></p>.
-		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>v8ch-primary-category</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
-		);
-	},
+	edit: withAPIData( function() {
+		return {
+			categories: '/wp/v2/categories',
+		};
+	} )(
+		function( props ) {
+			return (
+				<div className={ props.className }>
+					{ ! props.categories.data ? (
+						<div className="flex justify-center">
+							<Spinner />
+						</div>
+					) : (
+						<ul>
+							{ props.categories.data.map( ( category, index ) =>
+								<li key={ index.toString() }>{ category.name }</li>
+							) }
+						</ul>
+					) }
+				</div>
+			);
+		}
+	),
 
 	save: function() {
 		return (
