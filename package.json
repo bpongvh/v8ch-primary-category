@@ -8,6 +8,15 @@
 		"cgb-scripts": "1.9.7"
 	},
 	"description": "Creates a Gutenberg block for setting and displaying primary categories assigned to posts",
+	"devDependencies": {
+		"browser-sync": "^2.24.4",
+		"eslint": "^4.19.1",
+		"eslint-plugin-html": "^4.0.5",
+		"eslint-plugin-react": "^7.9.1",
+		"eslint-plugin-wordpress": "^0.1.0",
+		"gutenberg": "WordPress/gutenberg#master",
+		"jest": "^23.1.0"
+	},
 	"license": "MIT",
 	"name": "v8ch-primary-category",
 	"repository": {
@@ -20,14 +29,5 @@
 		"build": "cgb-scripts build",
 		"eject": "cgb-scripts eject",
 		"start": "cgb-scripts start"
-	},
-	"devDependencies": {
-		"browser-sync": "^2.24.4",
-		"eslint": "^4.19.1",
-		"eslint-plugin-html": "^4.0.5",
-		"eslint-plugin-react": "^7.9.1",
-		"eslint-plugin-wordpress": "^0.1.0",
-		"gutenberg": "WordPress/gutenberg#master",
-		"jest": "^23.1.0"
 	}
 }
