@@ -3,6 +3,7 @@ import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const { select } = wp.data;
 const { Spinner, withAPIData } = wp.components;
 
 /**
@@ -14,6 +15,12 @@ const { Spinner, withAPIData } = wp.components;
  * @return {?WPBlock}
  */
 registerBlockType( 'v8ch/primary-category', {
+	attributes: {
+		title: {
+			type: 'string',
+			meta: 'v8ch-primary-category',
+		},
+	},
 	category: 'common',
 	icon: 'category',
 	keywords: [ __( 'V8CH' ), __( 'category' ), __( 'primary' ) ],
@@ -25,6 +32,18 @@ registerBlockType( 'v8ch/primary-category', {
 		};
 	} )(
 		function( props ) {
+			wp.data.subscribe( function() {
+				const categories = select( 'core/editor' ).getEditedPostAttribute( 'categories' );
+				console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
+			} );
+			// const categories = select( 'core' ).getCategories();
+			// const categories = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'categories' );
+			// console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
+			// console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
+			// const categoriesData = props.categories.data.filter( category => category.id !== 2 );
+			// props.setAttributes( {
+			// 	'v8ch-primary-category': 'Some Category',
+			// } );
 			return (
 				<div className={ props.className }>
 					{ ! props.categories.data ? (
