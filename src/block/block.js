@@ -1,10 +1,32 @@
+import Controls from '../components/Controls.jsx';
+import Placeholder from '../components/Placeholder.jsx';
+
 import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { select } = wp.data;
-const { Spinner, withAPIData } = wp.components;
+const { withAPIData } = wp.components;
+
+const editFn = ( props ) => {
+	// TODO subscribe to post categories; null out primaryCategoryId if it is unselected
+	return ( [
+		props.isSelected &&
+			<Controls
+				categories={ props.categories }
+				key="inspector"
+				onSetPrimaryCategoryId={ ( primaryCategoryId ) => {
+					props.setAttributes( { primaryCategoryId } );
+				} }
+				primaryCategoryId={ props.attributes.primaryCategoryId }
+			/>,
+		<Placeholder
+			categories={ props.categories }
+			key="editor"
+			primaryCategoryId={ props.attributes.primaryCategoryId }
+		/>,
+	] );
+};
 
 /**
  * Register the block
@@ -16,57 +38,24 @@ const { Spinner, withAPIData } = wp.components;
  */
 registerBlockType( 'v8ch/primary-category', {
 	attributes: {
-		title: {
+		primaryCategoryId: {
 			type: 'string',
 			meta: 'v8ch-primary-category',
 		},
 	},
 	category: 'common',
 	icon: 'category',
-	keywords: [ __( 'V8CH' ), __( 'category' ), __( 'primary' ) ],
+	keywords: [ __( 'category' ), __( 'primary' ), __( 'V8CH' ) ],
 	title: __( 'V8CH Primary Category' ),
 
-	edit: withAPIData( function() {
-		return {
-			categories: '/wp/v2/categories',
-		};
-	} )(
-		function( props ) {
-			wp.data.subscribe( function() {
-				const categories = select( 'core/editor' ).getEditedPostAttribute( 'categories' );
-				console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
-			} );
-			// const categories = select( 'core' ).getCategories();
-			// const categories = wp.data.select( 'core/editor' ).getEditedPostAttribute( 'categories' );
-			// console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
-			// console.log( `[block.js] edit() categories: ${ JSON.stringify( categories ) }` );
-			// const categoriesData = props.categories.data.filter( category => category.id !== 2 );
-			// props.setAttributes( {
-			// 	'v8ch-primary-category': 'Some Category',
-			// } );
-			return (
-				<div className={ props.className }>
-					{ ! props.categories.data ? (
-						<div className="flex justify-center">
-							<Spinner />
-						</div>
-					) : (
-						<ul>
-							{ props.categories.data.map( ( category, index ) =>
-								<li key={ index.toString() }>{ category.name }</li>
-							) }
-						</ul>
-					) }
-				</div>
-			);
-		}
-	),
+	edit: withAPIData( () => {
+		return { categories: '/wp/v2/categories' };
+	} )( editFn ),
 
-	save: function() {
+	save() {
 		return (
 			<div>
-				<div>Primary Category:</div>
-				<div>Some Category Name</div>
+				<p>{ __( 'Primary Category: Some Category Name' ) }</p>
 			</div>
 		);
 	},

@@ -1,15 +1,5 @@
-/**
- * #.# Editor Styles
- *
- * CSS for just Backend enqueued after style.scss
- * which makes it higher in priority.
- */
-
-.wp-block-cgb-block-v8ch-primary-category  {
-  background: $green;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
+.placeholder {
+  border-bottom: 1px solid black;
+  border-top: 2px solid black;
+  padding: 1em 0;
 }
