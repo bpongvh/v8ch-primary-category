@@ -1,8 +1,8 @@
 const APP_HOST = 'wp-dev.v8ch.local';
 const FILES = [
-	'src/**/*.js',
+	'dist/*.css',
+	'dist/*.js',
 	'src/**/*.php',
-	'src/**/*.scss',
 ];
 module.exports = {
 	ui: {
