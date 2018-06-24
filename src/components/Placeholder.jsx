@@ -1,4 +1,4 @@
-const { Component } = wp.element;
+import { Component } from '@wordpress/element';
 
 class Placeholder extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function v8ch_primary_category_block_assets() {
 	wp_enqueue_style(
 		'v8ch_primary_category-style-css',
-		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ),
+		plugins_url( 'dist/v8ch-primary-category-style.css', dirname( __FILE__ ) ),
 		array( 'wp-blocks' )
 	);
 }
@@ -36,14 +36,14 @@ add_action( 'enqueue_block_assets', 'v8ch_primary_category_block_assets' );
 function v8ch_primary_category_editor_assets() {
 	wp_enqueue_script(
 		'v8ch_primary_category-block-js',
-		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ),
-		array( 'wp-blocks', 'wp-i18n', 'wp-element' ),
+		plugins_url( '/dist/v8ch-primary-category-blocks.js', dirname( __FILE__ ) ),
+		array( 'wp-blocks', 'wp-components', 'wp-data', 'wp-editor', 'wp-element', 'wp-i18n', 'wp-element' ),
 		true
 	);
 
 	wp_enqueue_style(
 		'v8ch_primary_category-block-editor-css',
-		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ),
+		plugins_url( 'dist/v8ch-primary-category-editor.css', dirname( __FILE__ ) ),
 		array( 'wp-edit-blocks' )
 	);
 }

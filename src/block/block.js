@@ -1,12 +1,11 @@
-import Controls from '../components/Controls.jsx';
-import Placeholder from '../components/Placeholder.jsx';
+import { registerBlockType } from '@wordpress/blocks';
+import { withAPIData } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import Controls from '../components/Controls';
+import Placeholder from '../components/Placeholder';
 
 import './style.scss';
 import './editor.scss';
-
-const { __ } = wp.i18n;
-const { registerBlockType } = wp.blocks;
-const { withAPIData } = wp.components;
 
 const editFn = ( props ) => {
 	// TODO subscribe to post categories; null out primaryCategoryId if it is unselected

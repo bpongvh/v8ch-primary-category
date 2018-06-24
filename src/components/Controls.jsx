@@ -1,8 +1,8 @@
-const { __ } = wp.i18n;
-const { SelectControl } = wp.components;
-const { select } = wp.data;
-const { InspectorControls } = wp.editor;
-const { Component } = wp.element;
+import { SelectControl } from '@wordpress/components';
+import { select } from '@wordpress/data';
+import { InspectorControls } from '@wordpress/editor';
+import { Component } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 class Controls extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
