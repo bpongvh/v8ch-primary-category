@@ -1,0 +1,58 @@
+{
+  "author": {
+    "name": "Robert Pratt",
+    "email": "bpong@v8ch.com",
+    "url": "https://www.v8ch.com/"
+  },
+  "dependencies": {},
+  "description": "Creates a Gutenberg block for setting and displaying primary categories assigned to posts",
+  "devDependencies": {
+    "@wordpress/babel-preset-default": "^1.3.0",
+    "@wordpress/i18n": "^1.1.1",
+    "@wordpress/jest-preset-default": "^1.0.6",
+    "autoprefixer": "^7.2.4",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^23.0.1",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "browser-sync": "^2.24.4",
+    "concurrently": "^3.6.0",
+    "eslint": "^4.19.1",
+    "eslint-config-wordpress": "^2.0.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-jest": "^21.6.1",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
+    "eslint-plugin-wordpress": "^0.1.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "gutenberg": "WordPress/gutenberg#master",
+    "jest": "^23.1.0",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.10",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.1.0"
+  },
+  "license": "MIT",
+  "name": "v8ch-primary-category",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/V8CH/v8ch-primary-category"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "browser-sync": "browser-sync start --config browser-sync.config.js",
+    "build-dev": "webpack --config=webpack.config.babel.js --progress",
+    "build-prod": "webpack --env.production --config=webpack.config.babel.js --progress",
+    "dev": "concurrently \"npm run watch-dev\" \"npm run browser-sync\"",
+    "test": "jest --notify --config=jest.config.json",
+    "watch-dev": "webpack --config=webpack.config.babel.js --progress --watch"
+  }
+}

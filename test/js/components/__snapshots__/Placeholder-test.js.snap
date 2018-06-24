@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Placeholder should render 1`] = `
+<p
+  className="placeholder"
+>
+  In Primary Category: 
+  Test Category
+</p>
+`;

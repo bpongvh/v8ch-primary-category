@@ -1,0 +1,23 @@
+{
+	"collectCoverageFrom": [
+		"src/**/*.js",
+		"!**/node_modules/**",
+		"!**/test/**"
+	],
+	"moduleDirectories": ["node_modules"],
+	"moduleNameMapper": {
+		"@eventespresso\\/(eejs)": "assets/src/$1",
+		"@wordpress\\/(blocks|components|edit-post|editor|utils|viewport)": "<rootDir>/node_modules/gutenberg/$1",
+		"@wordpress\\/(api-request|blob|core-data|data|date|deprecated|dom|element|plugins)": "<rootDir>/node_modules/gutenberg/packages/$1",
+		"tinymce": "<rootDir>/test/js/mocks/tinymce"
+	},
+	"preset": "@wordpress/jest-preset-default",
+	"testMatch": [ "**/test/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)" ],
+	"setupFiles": [ "./test/js/setup/globals" ],
+	"testPathIgnorePatterns": [
+		"/node_modules/",
+		"/test/js/mocks/",
+		"/test/js/setup/"
+	],
+	"transformIgnorePatterns": ["node_modules/(?!(gutenberg)/)"]
+}
