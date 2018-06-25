@@ -1,8 +1,8 @@
-import { Placeholder } from '@wordpress/components';
+import { Placeholder, withAPIData } from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
-class PrimaryCategoryPlaceholder extends Component {
+class InPrimaryCategoryPlaceholder extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
 		const canSetPrimaryCategoryName = ! nextProps.categories.isLoading &&
 			nextProps.categories.data;
@@ -24,7 +24,12 @@ class PrimaryCategoryPlaceholder extends Component {
 	render() {
 		return (
 			this.state.primaryCategoryName ? (
-				<p className="placeholder">In Primary Category: { this.state.primaryCategoryName }</p>
+				<div className="placeholder">
+					{ !! this.props.primaryCategoryLabel &&
+						<span className="placeholder__label">{ this.props.primaryCategoryLabel }</span>
+					}
+					<span className="placeholder__name">{ this.state.primaryCategoryName }</span>
+				</div>
 			) : (
 				<Placeholder
 					icon="category"
@@ -36,4 +41,6 @@ class PrimaryCategoryPlaceholder extends Component {
 	}
 }
 
-export default PrimaryCategoryPlaceholder;
+export default withAPIData( () => {
+	return { categories: '/wp/v2/categories?per_page=100' };
+} )( InPrimaryCategoryPlaceholder );

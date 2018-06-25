@@ -1,0 +1,24 @@
+.primary-category {
+  border-bottom: 1px solid $color__dark-gray-300;
+  border-top: 1px solid $color__dark-gray-300;
+  margin: 0 0 1.75em 0;
+  padding: .5em 0;
+}
+
+.primary-category__label {
+  margin: 0 .5em 0 0;
+}
+
+.wp-block-v8ch-primary-category  {
+  .flex {
+    display: flex;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
+
+  & .spinner {
+    float: none;
+  }
+}

@@ -1,10 +1,10 @@
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, TextControl, withAPIData } from '@wordpress/components';
 import { select, subscribe } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-class Controls extends Component {
+class InPrimaryCategoryControls extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
 		if ( nextProps.categories.data ) {
 			const normalize = ( categoriesData ) => {
@@ -32,6 +32,7 @@ class Controls extends Component {
 			selectedCategories: select( 'core/editor' ).getEditedPostAttribute( 'categories' ),
 		};
 		this.setPrimaryCategoryId = this.setPrimaryCategoryId.bind( this );
+		this.setPrimaryCategoryLabel = this.setPrimaryCategoryLabel.bind( this );
 	}
 
 	componentDidMount() {
@@ -45,6 +46,10 @@ class Controls extends Component {
 
 	setPrimaryCategoryId( value ) {
 		this.props.onSetPrimaryCategoryId( value );
+	}
+
+	setPrimaryCategoryLabel( value ) {
+		this.props.onSetPrimaryCategoryLabel( value );
 	}
 
 	synchronize( selectedCategories ) {
@@ -66,9 +71,16 @@ class Controls extends Component {
 						onChange={ this.setPrimaryCategoryId }
 						options={ this.state.options }
 					/>
+					<TextControl
+						label={ __( 'Enter primary category label' ) }
+						value={ this.props.primaryCategoryLabel }
+						onChange={ this.setPrimaryCategoryLabel }
+					/>
 				</InspectorControls>
 		);
 	}
 }
 
-export default Controls;
+export default withAPIData( () => {
+	return { categories: '/wp/v2/categories?per_page=100' };
+} )( InPrimaryCategoryControls );

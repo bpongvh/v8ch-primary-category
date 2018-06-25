@@ -1,8 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { withAPIData } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import Controls from '../components/Controls';
-import PrimaryCategoryPlaceholder from '../components/Placeholder';
+import InPrimaryCategoryContent from '../components/InPrimaryCategoryContent';
+import InPrimaryCategoryControls from '../components/InPrimaryCategoryControls';
+import InPrimaryCategoryPlaceholder from '../components/InPrimaryCategoryPlaceholder';
 
 import './style.scss';
 import './editor.scss';
@@ -12,27 +12,33 @@ const editFn = ( props ) => {
 		const primaryCategoryId = ( value === null ) ? undefined : value;
 		props.setAttributes( { primaryCategoryId } );
 	};
+	const setPrimaryCategoryLabel = ( value ) => {
+		const primaryCategoryLabel = ( value === '' ) ? undefined : value;
+		props.setAttributes( { primaryCategoryLabel } );
+	};
 	return ( [
-		<Controls
-			categories={ props.categories }
+		<InPrimaryCategoryControls
 			isSelected={ props.isSelected }
 			key="inspector"
 			onSetPrimaryCategoryId={ setPrimaryCategoryId }
+			onSetPrimaryCategoryLabel={ setPrimaryCategoryLabel }
 			primaryCategoryId={ props.attributes.primaryCategoryId }
+			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
 		/>,
-		<PrimaryCategoryPlaceholder
-			categories={ props.categories }
+		<InPrimaryCategoryPlaceholder
 			key="editor"
 			primaryCategoryId={ props.attributes.primaryCategoryId }
+			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
 		/>,
 	] );
 };
 
 const saveFn = ( props ) => {
 	return (
-		<div>
-			<p>{ __( 'Primary Category: Some Category' ) }</p>
-		</div>
+		<InPrimaryCategoryContent
+			primaryCategoryId={ props.attributes.primaryCategoryId }
+			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
+		/>
 	);
 };
 
@@ -62,11 +68,9 @@ registerBlockType( 'v8ch/primary-category', {
 	category: 'common',
 	icon: 'category',
 	keywords: [ __( 'category' ), __( 'primary' ), __( 'V8CH' ) ],
-	title: __( 'V8CH Primary Category' ),
+	title: __( 'In Primary Category' ),
 
-	edit: withAPIData( () => {
-		return { categories: '/wp/v2/categories?per_page=100' };
-	} )( editFn ),
+	edit: editFn,
 
 	save: saveFn,
 } );
