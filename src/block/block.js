@@ -2,29 +2,38 @@ import { registerBlockType } from '@wordpress/blocks';
 import { withAPIData } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import Controls from '../components/Controls';
-import Placeholder from '../components/Placeholder';
+import PrimaryCategoryPlaceholder from '../components/Placeholder';
 
 import './style.scss';
 import './editor.scss';
 
 const editFn = ( props ) => {
-	// TODO subscribe to post categories; null out primaryCategoryId if it is unselected
+	const setPrimaryCategoryId = ( value ) => {
+		const primaryCategoryId = ( value === null ) ? undefined : value;
+		props.setAttributes( { primaryCategoryId } );
+	};
 	return ( [
-		props.isSelected &&
-			<Controls
-				categories={ props.categories }
-				key="inspector"
-				onSetPrimaryCategoryId={ ( primaryCategoryId ) => {
-					props.setAttributes( { primaryCategoryId } );
-				} }
-				primaryCategoryId={ props.attributes.primaryCategoryId }
-			/>,
-		<Placeholder
+		<Controls
+			categories={ props.categories }
+			isSelected={ props.isSelected }
+			key="inspector"
+			onSetPrimaryCategoryId={ setPrimaryCategoryId }
+			primaryCategoryId={ props.attributes.primaryCategoryId }
+		/>,
+		<PrimaryCategoryPlaceholder
 			categories={ props.categories }
 			key="editor"
 			primaryCategoryId={ props.attributes.primaryCategoryId }
 		/>,
 	] );
+};
+
+const saveFn = ( props ) => {
+	return (
+		<div>
+			<p>{ __( 'Primary Category: Some Category' ) }</p>
+		</div>
+	);
 };
 
 /**
@@ -38,8 +47,16 @@ const editFn = ( props ) => {
 registerBlockType( 'v8ch/primary-category', {
 	attributes: {
 		primaryCategoryId: {
+			meta: 'v8ch-pc-id',
 			type: 'string',
-			meta: 'v8ch-primary-category',
+		},
+		primaryCategoryLabel: {
+			meta: 'v8ch-pc-label',
+			type: 'string',
+		},
+		showInContent: {
+			meta: 'v8ch-pc-show-in-content',
+			type: 'boolean',
 		},
 	},
 	category: 'common',
@@ -48,14 +65,8 @@ registerBlockType( 'v8ch/primary-category', {
 	title: __( 'V8CH Primary Category' ),
 
 	edit: withAPIData( () => {
-		return { categories: '/wp/v2/categories' };
+		return { categories: '/wp/v2/categories?per_page=100' };
 	} )( editFn ),
 
-	save() {
-		return (
-			<div>
-				<p>{ __( 'Primary Category: Some Category Name' ) }</p>
-			</div>
-		);
-	},
+	save: saveFn,
 } );
