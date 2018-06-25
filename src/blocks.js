@@ -1,4 +1,5 @@
 /**
  * Gutenberg Blocks
  */
-import './block/block.js';
+import './blocks/in-primary-category';
+import './store/index';

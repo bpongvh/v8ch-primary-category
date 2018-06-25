@@ -12,6 +12,7 @@ export default ( env = {} ) => {
 	// ----------------------
 
 	const externals = {
+		'@wordpress/api-request': { window: [ 'wp', 'apiRequest' ] },
 		'@wordpress/data': { window: [ 'wp', 'data' ] },
 		'@wordpress/blocks': { window: [ 'wp', 'blocks' ] },
 		'@wordpress/components': { window: [ 'wp', 'components' ] },
