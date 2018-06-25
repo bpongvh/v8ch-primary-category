@@ -56,9 +56,18 @@ add_action( 'enqueue_block_editor_assets', 'v8ch_primary_category_editor_assets'
  * @since   0.0.1
  */
 function v8ch_primary_category_register_meta() {
-	register_meta( 'post', 'v8ch-primary-category', array(
+	register_meta( 'post', 'v8ch-pc-id', array(
 		'show_in_rest' => true,
 		'single'       => true,
+	) );
+	register_meta( 'post', 'v8ch-pc-label', array(
+		'show_in_rest' => true,
+		'single'       => true,
+	) );
+	register_meta( 'post', 'v8ch-pc-show-in-content', array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => boolean,
 	) );
 }
 
