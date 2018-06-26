@@ -1,45 +1,43 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import InPrimaryCategoryContent from '../components/InPrimaryCategoryContent';
 import InPrimaryCategoryControls from '../components/InPrimaryCategoryControls';
 import InPrimaryCategoryPlaceholder from '../components/InPrimaryCategoryPlaceholder';
 
-import './style.scss';
 import './editor.scss';
 
 const editFn = ( props ) => {
+	if ( ! props.attributes.postId ) {
+		props.setAttributes( { postId: select( 'core/editor' ).getEditedPostAttribute( 'id' ) } );
+	}
 	const setPrimaryCategoryId = ( value ) => {
-		const primaryCategoryId = ( value === null ) ? undefined : value;
-		props.setAttributes( { primaryCategoryId } );
+		const primaryCategoryId = ( value === null ) ? undefined : parseInt( value, 10 );
+		// Need to set both here--one to pass with attributes for dynamic rendering and one for database lookup
+		props.setAttributes( {
+			primaryCategoryId,
+			primaryCategoryMetaId: primaryCategoryId,
+		} );
 	};
-	const setPrimaryCategoryLabel = ( value ) => {
-		const primaryCategoryLabel = ( value === '' ) ? undefined : value;
-		props.setAttributes( { primaryCategoryLabel } );
+	const setShowInContent = ( value ) => {
+		const showInContent = ! value ? false : true;
+		props.setAttributes( { showInContent } );
 	};
 	return ( [
 		<InPrimaryCategoryControls
 			isSelected={ props.isSelected }
 			key="inspector"
 			onSetPrimaryCategoryId={ setPrimaryCategoryId }
-			onSetPrimaryCategoryLabel={ setPrimaryCategoryLabel }
+			onSetShowInContent={ setShowInContent }
 			primaryCategoryId={ props.attributes.primaryCategoryId }
-			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
+			showInContent={ props.attributes.showInContent }
 		/>,
 		<InPrimaryCategoryPlaceholder
 			key="editor"
-			primaryCategoryId={ props.attributes.primaryCategoryId }
+			primaryCategoryId={ ! props.attributes.primaryCategoryId ? null : props.attributes.primaryCategoryId }
 			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
+			showInContent={ props.attributes.showInContent }
 		/>,
 	] );
-};
-
-const saveFn = ( props ) => {
-	return (
-		<InPrimaryCategoryContent
-			primaryCategoryId={ props.attributes.primaryCategoryId }
-			primaryCategoryLabel={ props.attributes.primaryCategoryLabel }
-		/>
-	);
 };
 
 /**
@@ -50,15 +48,22 @@ const saveFn = ( props ) => {
  * @param  {Object} settings
  * @return {?WPBlock}
  */
-registerBlockType( 'v8ch/primary-category', {
+registerBlockType( 'v8ch/in-primary-category', {
 	attributes: {
+		postId: {
+			meta: 'v8ch-pc-post-id',
+			type: 'integer',
+		},
+		// Store in block to pass with attributes for dynamic rendering
 		primaryCategoryId: {
 			meta: 'v8ch-pc-id',
-			type: 'string',
+			type: 'integer',
 		},
-		primaryCategoryLabel: {
-			meta: 'v8ch-pc-label',
-			type: 'string',
+		// Store in wp_postmeta for database lookups
+		primaryCategoryMetaId: {
+			meta: 'v8ch-pc-primary-category-id',
+			source: 'meta',
+			type: 'integer',
 		},
 		showInContent: {
 			meta: 'v8ch-pc-show-in-content',
@@ -72,5 +77,7 @@ registerBlockType( 'v8ch/primary-category', {
 
 	edit: editFn,
 
-	save: saveFn,
+	save: () => {
+		return null;
+	},
 } );

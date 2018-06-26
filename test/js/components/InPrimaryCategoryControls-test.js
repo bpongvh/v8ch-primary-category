@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
-import Controls from '../../../src/components/Controls';
+import InPrimaryCategoryControls from '../../../src/components/InPrimaryCategoryControls';
 
 describe( 'Controls', () => {
 	test( 'should render', () => {
 		const rendered = shallow(
-			<Controls />
+			<InPrimaryCategoryControls />
 		);
 		expect( rendered ).toMatchSnapshot();
 	} );

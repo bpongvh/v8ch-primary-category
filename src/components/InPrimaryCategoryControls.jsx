@@ -1,12 +1,19 @@
-import { SelectControl, TextControl, withAPIData } from '@wordpress/components';
-import { select, subscribe } from '@wordpress/data';
+import { SelectControl, ToggleControl } from '@wordpress/components';
+import { subscribe, withSelect } from '@wordpress/data';
 import { InspectorControls } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 class InPrimaryCategoryControls extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
-		if ( nextProps.categories.data ) {
+		let derivedState = prevState;
+		if ( nextProps.selectedCategories ) {
+			derivedState = {
+				...derivedState,
+				selectedCategories: nextProps.selectedCategories,
+			};
+		}
+		if ( nextProps.categories ) {
 			const normalize = ( categoriesData ) => {
 				return categoriesData.reduce( ( accumulator, category ) => {
 					return [
@@ -18,43 +25,37 @@ class InPrimaryCategoryControls extends Component {
 					];
 				}, [] );
 			};
-			const options = normalize( nextProps.categories.data )
+			const options = normalize( nextProps.categories )
 				.filter( ( category ) => prevState.selectedCategories.includes( category.value ) );
 			const initial = { label: '-- Select --', value: null };
-			return { options: [ initial, ...options ] };
+			derivedState = {
+				...derivedState,
+				options: [ initial, ...options ],
+			};
 		}
-		return prevState;
+		return derivedState;
 	}
 	constructor() {
 		super( ...arguments );
 		this.state = {
 			options: [],
-			selectedCategories: select( 'core/editor' ).getEditedPostAttribute( 'categories' ),
+			selectedCategories: this.props.selectedCategories,
 		};
 		this.setPrimaryCategoryId = this.setPrimaryCategoryId.bind( this );
-		this.setPrimaryCategoryLabel = this.setPrimaryCategoryLabel.bind( this );
-	}
-
-	componentDidMount() {
-		subscribe( () => {
-			const selectedCategories = select( 'core/editor' ).getEditedPostAttribute( 'categories' );
-			if ( this.state.selectedCategories.length !== selectedCategories.length ) {
-				this.setState( { selectedCategories }, () => this.synchronize( selectedCategories ) );
-			}
-		} );
+		this.setShowInContent = this.setShowInContent.bind( this );
 	}
 
 	setPrimaryCategoryId( value ) {
 		this.props.onSetPrimaryCategoryId( value );
 	}
 
-	setPrimaryCategoryLabel( value ) {
-		this.props.onSetPrimaryCategoryLabel( value );
+	setShowInContent( value ) {
+		this.props.onSetShowInContent( value );
 	}
 
 	synchronize( selectedCategories ) {
 		const shouldClear = this.props.primaryCategoryId &&
-			! selectedCategories.includes( parseInt( this.props.primaryCategoryId, 10 ) );
+			! selectedCategories.includes( this.props.primaryCategoryId );
 		if ( shouldClear ) {
 			this.props.onSetPrimaryCategoryId( null );
 		}
@@ -71,16 +72,29 @@ class InPrimaryCategoryControls extends Component {
 						onChange={ this.setPrimaryCategoryId }
 						options={ this.state.options }
 					/>
-					<TextControl
-						label={ __( 'Enter primary category label' ) }
-						value={ this.props.primaryCategoryLabel }
-						onChange={ this.setPrimaryCategoryLabel }
+					<ToggleControl
+						label={ __( 'Visibility' ) }
+						checked={ this.props.showInContent }
+						help={ ( checked ) => checked ? __( 'Show in post content.' ) : __( 'Hide in post content.' ) }
+						onChange={ this.setShowInContent }
 					/>
 				</InspectorControls>
 		);
 	}
 }
 
-export default withAPIData( () => {
-	return { categories: '/wp/v2/categories?per_page=100' };
+export default withSelect( ( select ) => {
+	const { getEditedPostAttribute } = select( 'core/editor' );
+	const { getCategories } = select( 'v8ch/primary-category' );
+	let selectedCategories = getEditedPostAttribute( 'categories' );
+	subscribe( () => {
+		const subscribedSelectedCategories = getEditedPostAttribute( 'categories' );
+		if ( selectedCategories.length !== subscribedSelectedCategories ) {
+			selectedCategories = subscribedSelectedCategories;
+		}
+	} );
+	return {
+		categories: getCategories(),
+		selectedCategories,
+	};
 } )( InPrimaryCategoryControls );
