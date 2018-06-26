@@ -1,9 +1,9 @@
 .placeholder {
-  border-bottom: 1px solid $color__dark-gray-300;
-  border-top: 1px solid $color__dark-gray-300;
   padding: .5em 0;
-}
 
-.placeholder__label {
-  margin: 0 .5em 0 0;
+  & .placeholder__primary-cateogry-label,
+  & .placeholder__visibility-label {
+    font-weight: bold;
+    margin: 0 .5em 0 0;
+  }
 }
