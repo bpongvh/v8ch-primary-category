@@ -1,16 +1,17 @@
-# v8ch-primary-category
-WordPress plugin to create a Gutenberg block for setting and displaying primary categories assigned to posts
+# V8CH Primary Category
+WordPress plugin to create a Gutenberg editor block for setting and displaying primary categories assigned to posts.
 
 ## Notes
 
 This is a work-in-progress, and several issues remain unresolved:
 
-- Certain snapshot tests fail (notably `Controls-test.js`) probably because of an issue with the way dependent libraries are included (via Jest's processing instead of Webpack bundling).
 - The primary category select is capped at 100 options as this is a per-page limitation of the WordPress REST API. Ultimate fix is to read headers to see if additional pages are available and fetch accordingly.
+- A complete implementation should address setting primary category in permalink if category is included in permalink.
+- In the Gutenberg editor, should allow setting the number of recent posts in primary category, with preview in the editor.
 
 ## Tests
 
-I spent a fair amount of time attempting to work out basic snapshot testing using Jest--without any luck. Tests fail for any of this packages components that imports any Gutenberg built-in component. Output from the failing tests is identical in every case:
+I spent a fair amount of time attempting to work out basic snapshot testing using Jest--without any luck. Tests fail for any of this packages components that imports any Gutenberg built-in component. Output from the failing tests is similar to this in every case:
 
 ```javascript
 yarn run v1.7.0
@@ -43,3 +44,13 @@ info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this comm
 ```
 
 This appears to be a reference error in the `@wordpress/a11y` package to an imported method in the `@wordpress/dom-ready` package that only surfaces during testing. (No errors occur during runtime after Webpack bundling.)
+
+As Gutenberg packages and dependencies appear to be in flux at the moment, I chose (after spending several hours trying to work out issues with running Jest) to forego test setup. I expect that Jest dependencies (and, no doubt, PHPUnit dependencies) are a solved problem with the Docker configuration provided with the Gutenberg repository. I currently use a Vagrant/Homestead development environment. I wanted to finish the initial version of this project without further delaying to rebuild my development environment to use Docker.
+
+## Using
+
+To use the block, simply add "In Primary Category" from the "Common Blocks" category. Assign the primary category by selecting one of the post's categories in the dropdown on the block inspector sidebar. The visibility switch controls the appearance of a primary category heading and list of three other recent post in the primary category in the post content.
+
+## License
+
+V8CH Primary Category is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
