@@ -102,6 +102,12 @@
   dependencies:
     "@wordpress/dom-ready" "^1.0.3"
 
+"@wordpress/a11y@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@wordpress/a11y/-/a11y-1.0.7.tgz#b4948178e090f1d1a7407655a8ec80b68c3b2e09"
+  dependencies:
+    "@wordpress/dom-ready" "^1.0.4"
+
 "@wordpress/autop@1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@wordpress/autop/-/autop-1.0.4.tgz#a1c39f0d0af0ed8d38bcc0a0b60b8d56c0233091"
@@ -121,9 +127,33 @@
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@wordpress/browserslist-config/-/browserslist-config-2.1.4.tgz#2297713d53424dec835eed4895abd4ceb3cac297"
 
-"@wordpress/dom-ready@1.0.4", "@wordpress/dom-ready@^1.0.3":
+"@wordpress/data@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@wordpress/data/-/data-1.0.0-alpha.1.tgz#2d5118271307c0444562c1454484d2d2be1e8d64"
+  dependencies:
+    "@wordpress/deprecated" "^1.0.0-alpha.1"
+    "@wordpress/element" "^1.0.0-alpha.1"
+    "@wordpress/is-shallow-equal" "1.0.2"
+    equivalent-key-map "0.2.0"
+    lodash "4.17.5"
+    redux "3.7.2"
+
+"@wordpress/deprecated@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@wordpress/deprecated/-/deprecated-1.0.0-alpha.1.tgz#560b2e961079e2f5dfd2a500272d3da9c9184928"
+
+"@wordpress/dom-ready@1.0.4", "@wordpress/dom-ready@^1.0.3", "@wordpress/dom-ready@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@wordpress/dom-ready/-/dom-ready-1.0.4.tgz#626648e83529de2243009ff04c12aeb9a949e333"
+
+"@wordpress/element@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@wordpress/element/-/element-1.0.0-alpha.1.tgz#1c22c6b7736abc9b4db0ce6275873bbc9997cf76"
+  dependencies:
+    "@wordpress/is-shallow-equal" "1.0.2"
+    lodash "4.17.5"
+    react "16.3.2"
+    react-dom "16.3.2"
 
 "@wordpress/hooks@1.1.6":
   version "1.1.6"
@@ -6248,6 +6278,15 @@ react-datepicker@1.4.1:
     react-onclickoutside "^6.7.1"
     react-popper "^0.9.1"
 
+react-dom@16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
 react-dom@16.4.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.1.tgz#7f8b0223b3a5fbe205116c56deb85de32685dad6"
@@ -6289,6 +6328,15 @@ react-test-renderer@^16.0.0-0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
     react-is "^16.4.1"
+
+react@16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react@16.4.1:
   version "16.4.1"
