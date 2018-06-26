@@ -12,12 +12,11 @@ export default ( env = {} ) => {
 	// ----------------------
 
 	const externals = {
-		'@wordpress/api-request': { window: [ 'wp', 'apiRequest' ] },
+		'@wordpress/api-request': { window: [ 'wp' ] },
 		'@wordpress/data': { window: [ 'wp', 'data' ] },
 		'@wordpress/blocks': { window: [ 'wp', 'blocks' ] },
 		'@wordpress/components': { window: [ 'wp', 'components' ] },
 		'@wordpress/editor': { window: [ 'wp', 'editor' ] },
-		'@wordpress/element': { window: [ 'wp', 'element' ] },
 		'@wordpress/i18n': { window: [ 'wp', 'i18n' ] },
 	};
 
@@ -67,10 +66,6 @@ export default ( env = {} ) => {
 		filename: 'v8ch-primary-category-editor.css',
 	} );
 
-	const extractTextStyleCss = new ExtractTextPlugin( {
-		filename: 'v8ch-primary-category-style.css',
-	} );
-
 	const uglifyJs = new webpack.optimize.UglifyJsPlugin( {
 		compress: {
 			warnings: false,
@@ -86,10 +81,7 @@ export default ( env = {} ) => {
 		sourceMap: true,
 	} );
 
-	const developmentPlugins = [
-		extractTextStyleCss,
-		extractTextEditorCss,
-	];
+	const developmentPlugins = [ extractTextEditorCss ];
 
 	const productionPlugins = [
 		...developmentPlugins,
@@ -113,11 +105,6 @@ export default ( env = {} ) => {
 						loader: 'babel-loader',
 						options: babelLoaderOptions,
 					},
-				},
-				{
-					test: /style\.s?css$/,
-					exclude: /(node_modules)/,
-					use: extractTextStyleCss.extract( extractTextConfig ),
 				},
 				{
 					test: /editor\.s?css$/,
