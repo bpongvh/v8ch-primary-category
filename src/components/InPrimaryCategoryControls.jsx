@@ -89,7 +89,7 @@ export default withSelect( ( select ) => {
 	let selectedCategories = getEditedPostAttribute( 'categories' );
 	subscribe( () => {
 		const subscribedSelectedCategories = getEditedPostAttribute( 'categories' );
-		if ( selectedCategories.length !== subscribedSelectedCategories ) {
+		if ( selectedCategories.length !== subscribedSelectedCategories.length ) {
 			selectedCategories = subscribedSelectedCategories;
 		}
 	} );
