@@ -1,10 +1,11 @@
-import { registerBlockType } from '@wordpress/blocks';
-import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import InPrimaryCategoryControls from '../components/InPrimaryCategoryControls';
 import InPrimaryCategoryPlaceholder from '../components/InPrimaryCategoryPlaceholder';
 
 import './editor.scss';
+
+const { registerBlockType } = wp.blocks;
+const { select } = wp.data;
 
 const editFn = ( props ) => {
 	if ( ! props.attributes.postId ) {

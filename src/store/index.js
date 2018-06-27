@@ -1,5 +1,5 @@
-import { apiRequest } from '@wordpress/api-request';
-import { dispatch, registerStore } from '@wordpress/data';
+const { apiRequest } = wp;
+const { dispatch, registerStore } = wp.data;
 
 const DEFAULT_STATE = {
 	categories: null,

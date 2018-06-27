@@ -1,7 +1,8 @@
-import { Placeholder } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
 import { Component } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
+
+const { Placeholder } = wp.components;
+const { withSelect } = wp.data;
 
 class InPrimaryCategoryPlaceholder extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
@@ -34,7 +35,7 @@ class InPrimaryCategoryPlaceholder extends Component {
 							<span className="placeholder__visibility-value">{ __( 'Hidden in post content' ) }</span>
 						) : (
 							<span className="placeholder__visibility-value">{ __( 'Showing in post content, with three recent posts from the same primary category' ) }</span>
-						)}
+						) }
 					</div>
 				</div>
 			) : (

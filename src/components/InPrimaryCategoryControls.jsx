@@ -1,8 +1,9 @@
-import { SelectControl, ToggleControl } from '@wordpress/components';
 import { subscribe, withSelect } from '@wordpress/data';
-import { InspectorControls } from '@wordpress/editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+const { SelectControl, ToggleControl } = wp.components;
+const { InspectorControls } = wp.editor;
 
 class InPrimaryCategoryControls extends Component {
 	static getDerivedStateFromProps( nextProps, prevState ) {
