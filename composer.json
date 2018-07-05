@@ -1,25 +1,39 @@
 {
-	"name": "v8ch/primary-category",
-	"type": "wordpress-plugin",
-	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"V8CH\\WordPress\\TractorBlocks\\": [
+				"src/PrimaryCategory"
+			]
+		}
+	},
 	"description": "Creates a Gutenberg block for setting and displaying primary categories assigned to posts",
 	"homepage": "https://github.com/V8CH/v8ch-primary-category",
+	"name": "v8ch/primary-category",
 	"keywords": [
-		"category", "gutenberg", "javascript", "primary", "react", "v8ch", "wordpress", "wp"
+		"category",
+		"gutenberg",
+		"javascript",
+		"primary",
+		"react",
+		"v8ch",
+		"wordpress",
+		"wp"
 	],
-	"support": {
-		"issues": "https://github.com/V8CH/v8ch-primary-category/issues"
+	"license": "MIT",
+	"require": {
+		"composer/installers": "~1.0",
+		"php": ">=7.1"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.3",
-		"squizlabs/php_codesniffer": "^3.1",
-		"wimg/php-compatibility": "^8",
-		"wp-coding-standards/wpcs": "^0.14.0"
-	},
-	"require": {
-		"composer/installers": "~1.0"
+		"10up/wp_mock": "^0.3.0",
+		"phpunit/phpunit": "^6",
+		"squizlabs/php_codesniffer": "^2.8.0"
 	},
 	"scripts": {
 		"lint": "phpcs"
-	}
+	},
+	"support": {
+		"issues": "https://github.com/V8CH/v8ch-primary-category/issues"
+	},
+	"type": "wordpress-plugin"
 }
