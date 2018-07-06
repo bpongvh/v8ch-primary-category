@@ -23,9 +23,9 @@ class Plugin
     public function __construct()
     {
         $this->apps = new RegisterRenderApps();
-        $this->assets = new RegisterAssets();
+        $this->assets = new EnqueueAssets();
         $this->blocks = new RegisterBlocks();
-        $this->blocks = new RegisterMeta();
+        $this->meta = new RegisterMeta();
     }
 
     public function registerApps()
@@ -33,7 +33,7 @@ class Plugin
         add_action('plugins_loaded', [$this->apps, 'register'], 100);
     }
         
-    public function registerAssets()
+    public function enqueueAssets()
     {
         add_action('plugins_loaded', [$this->assets, 'enqueue'], 100);
     }
@@ -51,9 +51,8 @@ class Plugin
     public function run()
     {
         $this->registerApps();
-        $this->registerAssets();
+        $this->enqueueAssets();
         $this->registerBlocks();
         $this->registerMeta();
     }
-
 }

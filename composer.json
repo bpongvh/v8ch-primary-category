@@ -1,7 +1,7 @@
 {
 	"autoload": {
 		"psr-4": {
-			"V8CH\\WordPress\\TractorBlocks\\": [
+			"V8CH\\WordPress\\PrimaryCategory\\": [
 				"src/PrimaryCategory"
 			]
 		}
