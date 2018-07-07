@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 const { SelectControl, ToggleControl } = wp.components;
-const { subscribe, withSelect } = wp.data;
 const { __ } = wp.i18n;
 const { InspectorControls } = wp.editor;
 
-class InPrimaryCategoryControls extends Component {
+class PrimaryCategoryControls extends Component {
   constructor(props) {
     super(props);
     const { selectedCategories } = this.props;
@@ -85,23 +84,9 @@ class InPrimaryCategoryControls extends Component {
   }
 }
 
-export default withSelect((select) => {
-  const { getEditedPostAttribute } = select('core/editor');
-  const { getCategories } = select('v8ch/primary-category');
-  let selectedCategories = getEditedPostAttribute('categories');
-  subscribe(() => {
-    const subscribedSelectedCategories = getEditedPostAttribute('categories');
-    if (selectedCategories.length !== subscribedSelectedCategories.length) {
-      selectedCategories = subscribedSelectedCategories;
-    }
-  });
-  return {
-    categories: getCategories(),
-    selectedCategories,
-  };
-})(InPrimaryCategoryControls);
+export default PrimaryCategoryControls;
 
-InPrimaryCategoryControls.propTypes = {
+PrimaryCategoryControls.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   primaryCategoryId: PropTypes.string.isRequired,
   onSetPrimaryCategoryId: PropTypes.func.isRequired,
