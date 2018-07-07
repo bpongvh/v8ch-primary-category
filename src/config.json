@@ -1,5 +1,6 @@
 {
   "entry": {
+    "app-v8ch-recent-posts": ["./scripts/app-v8ch-recent-posts.jsx"],
     "block-primary-category": ["./scripts/blocks/primary-category.jsx"],
     "primary-category": ["./styles/primary-category.scss"],
     "store-primary-category": ["./scripts/store/index.js"]
