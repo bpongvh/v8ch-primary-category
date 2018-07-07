@@ -10,30 +10,18 @@ global.wp = {
 	},
 };
 
-[
-	'blocks',
-	'components',
-	'edit-post',
-	'editor',
-	'utils',
-	'viewport',
-].forEach( entryPointName => {
-	Object.defineProperty( global.wp, entryPointName, {
-		get: () => require( 'gutenberg/' + entryPointName ),
-	} );
+Object.defineProperty( global.wp, 'apiRequest', {
+	get: () => require( '../../../../gutenberg/packages/api-request' ),
 } );
 
-[
-	'api-request',
-	'core-data',
-	'data',
-	'date',
-	'deprecated',
-	'dom',
-	'element',
-	'plugins',
-].forEach( entryPointName => {
-	Object.defineProperty( global.wp, entryPointName, {
-		get: () => require( 'gutenberg/packages/' + entryPointName ),
-	} );
+Object.defineProperty( global.wp, 'blocks', {
+	get: () => require( '../../../../gutenberg/blocks' ),
+} );
+
+Object.defineProperty( global.wp, 'components', {
+	get: () => require( '../../../../gutenberg/components' ),
+} );
+
+Object.defineProperty( global.wp, 'editor', {
+	get: () => require( '../../../../gutenberg/editor' ),
 } );

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore
 /**
  * Plugin Name: V8CH Primary Category
  * Plugin URI: https://github.com/V8CH/v8ch-primary-category
@@ -13,11 +13,12 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (! defined('ABSPATH')) {
+    exit;
 }
 
-/**
- * Block Initializer.
- */
-require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
+use V8CH\WordPress\PrimaryCategory\Plugin;
+
+require_once 'vendor/autoload.php';
+$plugin = new Plugin();
+$plugin->run();
