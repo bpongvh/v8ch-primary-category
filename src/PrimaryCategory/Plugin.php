@@ -19,6 +19,7 @@ class Plugin
     public $assets;
     public $blocks;
     public $meta;
+    public $taxonomy;
 
     public function __construct()
     {
@@ -26,6 +27,7 @@ class Plugin
         $this->assets = new EnqueueAssets();
         $this->blocks = new RegisterBlocks();
         $this->meta = new RegisterMeta();
+        $this->taxonomy = new RegisterTaxonomy();
     }
 
     public function registerApps()
@@ -48,11 +50,17 @@ class Plugin
         add_action('plugins_loaded', [$this->meta, 'register'], 100);
     }
         
+    public function registerTaxonomy()
+    {
+        add_action('init', [$this->taxonomy, 'register'], 100);
+    }
+        
     public function run()
     {
         $this->registerApps();
         $this->enqueueAssets();
         $this->registerBlocks();
         $this->registerMeta();
+        $this->registerTaxonomy();
     }
 }

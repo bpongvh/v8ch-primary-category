@@ -17,7 +17,7 @@ class RegisterRenderApps
 
     public function register()
     {
-        // TODO
+        $this->registerRecentPosts();
     }
 
     // public function registerStyle()
@@ -29,14 +29,14 @@ class RegisterRenderApps
     //     );
     // }
 
-    // public function registerV8chContactApp()
-    // {
-    //     wp_register_script(
-    //         'v8ch_contact_app',
-    //         plugins_url('/dist/scripts/app-v8ch-contact.js', dirname(__FILE__, 2)),
-    //         ['wp-element'],
-    //         false,
-    //         true
-    //     );
-    // }
+    public function registerRecentPosts()
+    {
+        wp_enqueue_script(
+            'v8ch_recent_posts_app',
+            plugins_url('/dist/scripts/app-v8ch-recent-posts.js', dirname(__FILE__, 2)),
+            ['wp-element'],
+            false,
+            true
+        );
+    }
 }

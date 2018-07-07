@@ -18,7 +18,7 @@ class RegisterMeta
     {
         register_meta(
             'post',
-            'v8ch-pc-post-id',
+            'v8ch-pc-primary-category-id',
             [
                 'show_in_rest' => true,
                 'single'       => true,

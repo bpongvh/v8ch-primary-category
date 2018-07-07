@@ -12,24 +12,25 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use WP_Query;
+
 class RegisterBlocks
 {
     public function register()
     {
         register_block_type(
-            'v8ch/v8ch-contact',
+            'v8ch/primary-category',
             [
-            // 'editor_script'   => 'v8ch/block-v8ch-contact',
-            // 'editor_style'    => 'v8ch-tractor-blocks',
-            'render_callback'    => [$this, 'renderRecentInPrimaryCategory'],
+            'editor_script'   => 'v8ch/block-primary-category',
+            'editor_style'    => 'v8ch-primary-category',
+            'render_callback'    => [$this, 'renderRecentPosts'],
             ]
         );
     }
 
-    public function renderRecentInPrimaryCategory($attributes)
+    public function renderRecentPosts($attributes)
     {
         if ($attributes['showInContent']) {
-  
             $primary_category = null;
             foreach (get_categories() as $category) {
                 if ($category->cat_ID === $attributes['primaryCategoryId']) {
@@ -37,43 +38,33 @@ class RegisterBlocks
                     break;
                 }
             }
-  
+    
             $args  = array(
-            'meta_key'       => 'v8ch-pc-primary-category-id',
-            'meta_value'     => $attributes['primaryCategoryId'],
-            'post__not_in'   => [ $attributes['postId']],
-            'posts_per_page' => 3,
+                'meta_key'       => 'v8ch-pc-primary-category-id',
+                'meta_value'     => $attributes['primaryCategoryId'],
+                'post__not_in'   => [ $attributes['postId'] ],
+                'posts_per_page' => 3,
             );
             $query = new WP_Query($args);
-  
-            // -------------------------
-            // HTML output for block.
-            // -------------------------
+
+            $recentPosts = array_map(function ($post) {
+                return [
+                    'permalink'   => get_the_permalink($post),
+                    'publishedAt' => get_the_date('', $post),
+                    'title'       => get_the_title($post),
+                ];
+            }, $query->posts);
+
             ob_start();
             ?>
-        <div class="wp-block-v8ch-in-primary-category">
-            <h5 class="wp-block-v8ch-in-primary-category__title">
-            <?php if (0 === $query->post_count) : ?>
-            <span class="primary-category-label"><?php esc_html_e('In Primary Category: '); ?></span>
-            <?php else : ?>
-            <span class="primary-category-label"><?php esc_html_e('Latest Posts in Primary Category: '); ?></span>
-            <?php endif ?>
-            <span class="primary-category-name"><?php echo esc_html($primary_category->cat_name); ?></span>
-            </h5>
-            <ul>
-            <?php while ( $query->have_posts() ) : $query->the_post(); // phpcs:ignore ?>
-            <li>
-                <a href="<?php echo esc_url(get_permalink()); ?>"><?php echo esc_html(get_the_title()); ?></a>
-            </li>
-            <?php endwhile ?>
-            </ul>
-        </div>
+        <div
+            class="v8ch-recent-posts-mount"
+            data-posts='<?php echo json_encode($recentPosts) ?>'
+        ></div>
             <?php
             $html = ob_get_clean();
             ob_flush();
-  
-            wp_reset_postdata();
-  
+
             return $html;
         }
     }
