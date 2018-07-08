@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { __, sprintf } from '@wordpress/i18n';
 
 const { Placeholder } = wp.components;
-const { withSelect } = wp.data;
-const { __, sprintf } = wp.i18n;
 
-class InPrimaryCategoryPlaceholder extends Component {
+class EditorPlaceholder extends Component {
   constructor(props) {
     super(props);
     this.state = { primaryCategoryName: null };
@@ -49,13 +48,8 @@ class InPrimaryCategoryPlaceholder extends Component {
   }
 }
 
-export default withSelect((select) => {
-  const { getCategories } = select('v8ch/primary-category');
-  return {
-    categories: getCategories(),
-  };
-})(InPrimaryCategoryPlaceholder);
+export default EditorPlaceholder;
 
-InPrimaryCategoryPlaceholder.propTypes = {
+EditorPlaceholder.propTypes = {
   showInContent: PropTypes.bool.isRequired,
 };

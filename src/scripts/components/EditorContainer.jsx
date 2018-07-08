@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import PrimaryCategoryControls from './PrimaryCategoryControls';
-import PrimaryCategoryPlaceholder from './PrimaryCategoryPlaceholder';
+import EditorControls from './EditorControls';
+import EditorPlaceholder from './EditorPlaceholder';
 import { updateList, updateValue } from '../store/utils/subscription';
 
 const { apiRequest } = wp;
@@ -13,11 +13,11 @@ const {
 } = wp.data;
 const { compose } = wp.element;
 
-class PrimaryCategoryEditContainer extends Component {
+class EditorContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { primaryCategoryId: null };
-    this.setPrimaryCategoryId = this.setPrimaryCategoryId.bind(this);
+    this.setPrimaryCategory = this.setPrimaryCategory.bind(this);
     this.setShowInContent = this.setShowInContent.bind(this);
   }
 
@@ -53,32 +53,64 @@ class PrimaryCategoryEditContainer extends Component {
 
   async clearPrimaryCategoryId() {
     this.setState({ primaryCategoryId: null });
-    this.props.updatePrimaryCategory(null);
+    this.update(null);
   }
 
-  async createAndUpdate(name) {
+  async createAndUpdateTag(name) {
     const primaryCategory = await apiRequest({
       path: '/wp/v2/primary_category',
       method: 'POST',
       data: { name },
     });
     this.props.pushPrimaryCategory(primaryCategory);
-    this.props.updatePrimaryCategory(primaryCategory.id);
+    this.update(primaryCategory.id);
   }
 
-  async findAndUpdate(name) {
+  async findAndUpdateTag(name) {
     const primaryCategory = this.props.primaryCategories
       .filter(item => item.name === name)[0];
-    this.props.updatePrimaryCategory(primaryCategory.id);
+    this.update(primaryCategory.id);
   }
 
-  setPrimaryCategoryId(value) {
-    const shouldCreate = !this.props.primaryCategoryNames.includes(value);
-    if (shouldCreate) {
-      this.createAndUpdate(value);
+  setPrimaryCategory(value) {
+    const shouldCreateTag = !this.props.primaryCategoryNames.includes(value);
+    if (shouldCreateTag) {
+      this.createAndUpdateTag(value);
     } else {
-      this.findAndUpdate(value);
+      this.findAndUpdateTag(value);
     }
+    const primaryCategory = this.props.categories.find(category => (
+      category.id === parseInt(value, 10)
+    ));
+    this.props.setAttributes({ categoryName: primaryCategory.name });
+  }
+
+  async setRecent(primaryCategoryId) {
+    const before = !this.props.publishedAt ? new Date().toISOString()
+      : this.props.publishedAt;
+    const data = {
+      before,
+      order: 'desc',
+      orderby: 'date',
+      per_page: '3',
+    };
+    const primaryCategory = this.props.primaryCategories.find(
+      category => category.id === primaryCategoryId,
+    );
+    if (primaryCategory) {
+      Object.assign(data, { primary_category: primaryCategory.id });
+    }
+    const recentInPrimaryCategory = await apiRequest({
+      path: '/wp/v2/posts',
+      method: 'GET',
+      data,
+    });
+    const recentPosts = recentInPrimaryCategory.map(post => ({
+      publishedAt: new Date(post.date).toISOString(),
+      link: post.link,
+      title: post.title.rendered,
+    }));
+    this.props.setAttributes({ recentPosts: JSON.stringify(recentPosts) });
   }
 
   setShowInContent(value) {
@@ -86,19 +118,27 @@ class PrimaryCategoryEditContainer extends Component {
     this.props.setAttributes({ showInContent });
   }
 
+  update(primaryCategoryId) {
+    if (primaryCategoryId) {
+      this.setRecent(primaryCategoryId);
+    }
+    this.props.updatePrimaryCategory(primaryCategoryId);
+  }
+
   render() {
     return ([
-      <PrimaryCategoryControls
+      <EditorControls
         categories={this.props.categories}
         isSelected={this.props.isSelected}
         key="inspector"
-        onSetPrimaryCategoryId={this.setPrimaryCategoryId}
+        onSetPrimaryCategoryId={this.setPrimaryCategory}
         onSetShowInContent={this.setShowInContent}
         primaryCategoryId={this.state.primaryCategoryId}
         selectedCategories={this.props.selectedCategories}
         showInContent={this.props.attributes.showInContent}
       />,
-      <PrimaryCategoryPlaceholder
+      <EditorPlaceholder
+        categories={this.props.categories}
         key="editor"
         primaryCategoryId={this.state.primaryCategoryId}
         primaryCategoryLabel={this.props.attributes.primaryCategoryLabel}
@@ -151,17 +191,19 @@ export default compose(
       primaryCategories,
       primaryCategoryNames,
       primaryCategoryTagId,
+      publishedAt: getEditedPostAttribute('date'),
       selectedCategories,
     };
   }),
-)(PrimaryCategoryEditContainer);
+)(EditorContainer);
 
-PrimaryCategoryEditContainer.propTypes = {
+EditorContainer.propTypes = {
   attributes: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   isSelected: PropTypes.bool.isRequired,
   primaryCategories: PropTypes.array.isRequired,
   primaryCategoryNames: PropTypes.array.isRequired,
+  publishedAt: PropTypes.string.isRequired,
   pushPrimaryCategory: PropTypes.func.isRequired,
   selectedCategories: PropTypes.array.isRequired,
   setAttributes: PropTypes.func.isRequired,
