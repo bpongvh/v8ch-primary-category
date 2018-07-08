@@ -56,14 +56,17 @@ class EditorContainer extends Component {
     this.update(null);
   }
 
-  async createAndUpdateTag(name) {
-    const primaryCategory = await apiRequest({
-      path: '/wp/v2/primary_category',
-      method: 'POST',
-      data: { name },
+  createAndUpdateTag(name) {
+    return new Promise(async (resolve) => {
+      const primaryCategory = await apiRequest({
+        path: '/wp/v2/primary_category',
+        method: 'POST',
+        data: { name },
+      });
+      this.props.pushPrimaryCategory(primaryCategory);
+      this.update(primaryCategory.id);
+      resolve();
     });
-    this.props.pushPrimaryCategory(primaryCategory);
-    this.update(primaryCategory.id);
   }
 
   async findAndUpdateTag(name) {
@@ -72,17 +75,21 @@ class EditorContainer extends Component {
     this.update(primaryCategory.id);
   }
 
+  setCategoryName(categoryId) {
+    const primaryCategory = this.props.categories.find(category => (
+      category.id === parseInt(categoryId, 10)
+    ));
+    this.props.setAttributes({ categoryName: primaryCategory.name });
+  }
+
   setPrimaryCategory(value) {
     const shouldCreateTag = !this.props.primaryCategoryNames.includes(value);
     if (shouldCreateTag) {
-      this.createAndUpdateTag(value);
+      this.createAndUpdateTag(value).then(() => this.setCategoryName(value));
     } else {
       this.findAndUpdateTag(value);
+      this.setCategoryName(value);
     }
-    const primaryCategory = this.props.categories.find(category => (
-      category.id === parseInt(value, 10)
-    ));
-    this.props.setAttributes({ categoryName: primaryCategory.name });
   }
 
   async setRecent(primaryCategoryId) {
