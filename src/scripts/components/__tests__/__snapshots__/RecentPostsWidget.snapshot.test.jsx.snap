@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecentPostsWidget Snapshot renders correctly 1`] = `
+Array [
+  <h2
+    className="widget-title"
+  >
+    Previously in Category Name:
+  </h2>,
+  <ul>
+    <li
+      className="mock-recent-post-list-item"
+    >
+      Mock RecentPostListItem
+    </li>
+    <li
+      className="mock-recent-post-list-item"
+    >
+      Mock RecentPostListItem
+    </li>
+  </ul>,
+]
+`;

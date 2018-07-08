@@ -1,24 +1,19 @@
 {
 	"collectCoverageFrom": [
-		"src/**/*.js",
+		"src/**/*.js?(x)",
 		"!**/node_modules/**",
-		"!**/test/**"
+		"!**/__test__/**"
 	],
-	"moduleDirectories": ["node_modules"],
+	"moduleDirectories": [
+		"node_modules",
+		"src/scripts/tests/mocks"
+	],
 	"moduleNameMapper": {
-		"@wordpress\\/a11y": "<rootDir>/node_modules/@wordpress/a11y",
-		"@wordpress\\/dom-ready": "<rootDir>/node_modules/@wordpress/dom-ready",
-		"@wordpress\\/(blocks|components|edit-post|editor|nux|utils|viewport)": "<rootDir>/node_modules/gutenberg/$1",
-		"@wordpress\\/(api-request|blob|core-data|deprecated|dom|plugins)": "<rootDir>/node_modules/gutenberg/packages/$1",
-		"tinymce": "<rootDir>/test/js/mocks/tinymce"
+		"@wordpress\\/element": "<rootDir>/node_modules/gutenberg/packages/element",
+		"@wordpress\\/keycodes": "<rootDir>/node_modules/gutenberg/packages/keycodes"
 	},
-	"preset": "@wordpress/jest-preset-default",
-	"testMatch": ["**/test/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
-	"setupFiles": ["./test/js/setup/globals"],
-	"testPathIgnorePatterns": [
-		"/node_modules/",
-		"/test/js/mocks/",
-		"/test/js/setup/"
-	],
+	"setupFiles": ["./src/scripts/tests/setup/globals"],
+	"testMatch": ["**/__tests__/**/?(*.)+(spec|test).js?(x)"],
+	"testPathIgnorePatterns": ["/node_modules/"],
 	"transformIgnorePatterns": ["node_modules/(?!(gutenberg)/)"]
 }

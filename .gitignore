@@ -1,5 +1,6 @@
 /.vscode
 /dist
 /node_modules
+/vendor
 .directory
 yarn-error.log
