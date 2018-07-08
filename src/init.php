@@ -51,21 +51,21 @@ function v8ch_primary_category_register_meta() {
 		'post', 'v8ch-pc-post-id', array(
 			'show_in_rest' => true,
 			'single'       => true,
-			'type'         => integer,
+			'type'         => 'integer',
 		)
 	);
 	register_meta(
 		'post', 'v8ch-pc-primary-category-id', array(
 			'show_in_rest' => true,
 			'single'       => true,
-			'type'         => integer,
+			'type'         => 'integer',
 		)
 	);
 	register_meta(
 		'post', 'v8ch-pc-show-in-content', array(
 			'show_in_rest' => true,
 			'single'       => true,
-			'type'         => boolean,
+			'type'         => 'boolean',
 		)
 	);
 }

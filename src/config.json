@@ -1,0 +1,17 @@
+{
+  "entry": {
+    "app-v8ch-recent-posts-widget": ["./scripts/app-v8ch-recent-posts-widget.jsx"],
+    "block-primary-category-recent-posts-widget": ["./scripts/blocks/primary-category-recent-posts-widget.jsx"],
+    "primary-category-widget": ["./styles/primary-category-widget.scss"],
+    "store-primary-category": ["./scripts/store/index.js"]
+  },
+  "devUrl": "http://wp_dev.local",
+  "proxyUrl": "http://localhost:3001",
+  "cacheBusting": "[name]_[hash:8]",
+  "watch": [
+    "dist/**/*.css",
+    "dist/**/*.js",
+    "init.php",
+    "v8ch-primary-category.php"
+  ]
+}
