@@ -5,7 +5,7 @@
  * Description: Creates a Gutenberg block for setting and displaying primary categories assigned to posts
  * Author: Robert Pratt
  * Author URI: https://www.v8ch.com/
- * Version: 0.0.1
+ * Version: 2.0.0
  * License: MIT
  * License URI: https://opensource.org/licenses/MIT
  *
