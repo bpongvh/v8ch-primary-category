@@ -18,8 +18,8 @@ class EnqueueAssets
     public function enqueue()
     {
         wp_enqueue_script(
-            'v8ch/block-v8ch-primary-category',
-            plugins_url('/dist/scripts/block-primary-category.js', dirname(__FILE__, 2)),
+            'v8ch/block-v8ch-primary-category-recent-posts-widget',
+            plugins_url('/dist/scripts/block-primary-category-recent-posts-widget.js', dirname(__FILE__, 2)),
             ['store-primary-category', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-element'],
             false,
             true
@@ -34,8 +34,8 @@ class EnqueueAssets
         );
     
         wp_enqueue_style(
-            'v8ch-primary-category',
-            plugins_url('dist/styles/primary-category.css', dirname(__FILE__, 2)),
+            'v8ch-primary-category-widget',
+            plugins_url('dist/styles/primary-category-widget.css', dirname(__FILE__, 2)),
             ['wp-edit-blocks']
         );
     }

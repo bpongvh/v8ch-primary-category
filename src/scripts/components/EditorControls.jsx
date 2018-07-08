@@ -5,7 +5,7 @@ const { SelectControl, ToggleControl } = wp.components;
 const { __ } = wp.i18n;
 const { InspectorControls } = wp.editor;
 
-class PrimaryCategoryControls extends Component {
+class EditorControls extends Component {
   constructor(props) {
     super(props);
     const { selectedCategories } = this.props;
@@ -84,9 +84,9 @@ class PrimaryCategoryControls extends Component {
   }
 }
 
-export default PrimaryCategoryControls;
+export default EditorControls;
 
-PrimaryCategoryControls.propTypes = {
+EditorControls.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   primaryCategoryId: PropTypes.string.isRequired,
   onSetPrimaryCategoryId: PropTypes.func.isRequired,

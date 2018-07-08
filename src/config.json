@@ -1,8 +1,8 @@
 {
   "entry": {
-    "app-v8ch-recent-posts": ["./scripts/app-v8ch-recent-posts.jsx"],
-    "block-primary-category": ["./scripts/blocks/primary-category.jsx"],
-    "primary-category": ["./styles/primary-category.scss"],
+    "app-v8ch-recent-posts-widget": ["./scripts/app-v8ch-recent-posts-widget.jsx"],
+    "block-primary-category-recent-posts-widget": ["./scripts/blocks/primary-category-recent-posts-widget.jsx"],
+    "primary-category-widget": ["./styles/primary-category-widget.scss"],
     "store-primary-category": ["./scripts/store/index.js"]
   },
   "devUrl": "http://wp_dev.local",
