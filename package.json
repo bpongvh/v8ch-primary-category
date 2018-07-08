@@ -4,7 +4,8 @@
     "email": "bpong@v8ch.com",
     "url": "https://www.v8ch.com/"
   },
-  "dependencies": {    
+  "dependencies": {
+    "@wordpress/i18n": "^1.1.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

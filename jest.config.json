@@ -1,16 +1,19 @@
 {
 	"collectCoverageFrom": [
-		"src/**/*.js",
+		"src/**/*.js?(x)",
 		"!**/node_modules/**",
-		"!**/test/**"
+		"!**/__test__/**"
 	],
-	"moduleDirectories": ["node_modules"],
-	"preset": "@wordpress/jest-preset-default",
-	"testMatch": ["**/test/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
-	"setupFiles": ["./test/js/setup/globals"],
-	"testPathIgnorePatterns": [
-		"/node_modules/",
-		"/test/js/mocks/",
-		"/test/js/setup/"
-	]
+	"moduleDirectories": [
+		"node_modules",
+		"src/scripts/tests/mocks"
+	],
+	"moduleNameMapper": {
+		"@wordpress\\/element": "<rootDir>/node_modules/gutenberg/packages/element",
+		"@wordpress\\/keycodes": "<rootDir>/node_modules/gutenberg/packages/keycodes"
+	},
+	"setupFiles": ["./src/scripts/tests/setup/globals"],
+	"testMatch": ["**/__tests__/**/?(*.)+(spec|test).js?(x)"],
+	"testPathIgnorePatterns": ["/node_modules/"],
+	"transformIgnorePatterns": ["node_modules/(?!(gutenberg)/)"]
 }
