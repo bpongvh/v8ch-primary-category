@@ -3,6 +3,8 @@ WordPress plugin to create a Gutenberg editor block for setting and displaying p
 
 Where v1.0.0 relied on post meta to set a post's primary category, this version uses a custom taxonomy, which provides performant queries via `WP_Query` when building lists of posts in a given primary category. The custom taxonomy is `primary_category`, and the names of the terms are simply stringified integer category IDs.
 
+The current master branch reflects v2.0.0. To review v1.0.0, select the `v1.0.0` branch.
+
 ## Usage
 
 Clone this repo to the `plugins` directory of a WordPress installation. Install dependencies with `composer install` and `yarn install`. Then build for production with `yarn build:prod`.
