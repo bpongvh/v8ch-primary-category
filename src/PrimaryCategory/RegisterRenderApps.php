@@ -15,12 +15,12 @@ if (!defined('ABSPATH')) {
 class RegisterRenderApps
 {
 
-    public function register()
+    public function enqueue()
     {
-        $this->registerRecentPosts();
+        $this->enqueueRecentPosts();
     }
 
-    public function registerRecentPosts()
+    public function enqueueRecentPosts()
     {
         wp_enqueue_script(
             'v8ch_recent_posts_widget_app',

@@ -113,8 +113,8 @@ class EditorContainer extends Component {
       data,
     });
     const recentPosts = recentInPrimaryCategory.map(post => ({
-      publishedAt: new Date(post.date).toISOString(),
       link: post.link,
+      publishedAt: new Date(post.date).toISOString(),
       title: post.title.rendered,
     }));
     this.props.setAttributes({ recentPosts: JSON.stringify(recentPosts) });

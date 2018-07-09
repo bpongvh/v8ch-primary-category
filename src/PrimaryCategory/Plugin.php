@@ -28,9 +28,9 @@ class Plugin
         $this->taxonomy = new RegisterTaxonomy();
     }
 
-    public function registerApps()
+    public function enqueueApps()
     {
-        add_action('plugins_loaded', [$this->apps, 'register'], 100);
+        add_action('plugins_loaded', [$this->apps, 'enqueue'], 100);
     }
         
     public function enqueueAssets()
@@ -50,7 +50,7 @@ class Plugin
         
     public function run()
     {
-        $this->registerApps();
+        $this->enqueueApps();
         $this->enqueueAssets();
         $this->registerBlocks();
         $this->registerTaxonomy();

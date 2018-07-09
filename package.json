@@ -69,8 +69,10 @@
     "url": "https://github.com/V8CH/v8ch-primary-category"
   },
   "scripts": {
-    "build-dev": "webpack --config src/build/webpack.config.babel.js --mode development --progress --watch",
-    "start": "webpack --config webpack.config.js",
+    "build:prod": "webpack --config src/build/webpack.config.babel.js --env.production --mode production --progress",
+    "build:dev": "webpack --config src/build/webpack.config.babel.js --mode development --progress",
+    "build:dev-watch": "webpack --config src/build/webpack.config.babel.js --mode development --progress --watch",
+    "start": "npm run build:dev-watch",
     "test": "jest --config jest.config.json"
   },
   "version": "2.0.0"

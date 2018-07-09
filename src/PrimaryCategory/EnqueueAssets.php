@@ -35,7 +35,7 @@ class EnqueueAssets
     
         wp_enqueue_style(
             'v8ch-primary-category-widget',
-            plugins_url('dist/styles/primary-category-widget.css', dirname(__FILE__, 2)),
+            plugins_url('/dist/styles/primary-category-widget.css', dirname(__FILE__, 2)),
             ['wp-edit-blocks']
         );
     }

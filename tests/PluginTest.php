@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package V8ch_Tractor_Blocks
+ * @package tests
  */
 
 namespace V8CH\WordPress\PrimaryCategory\Tests;
@@ -25,6 +25,22 @@ class PluginTest extends TestCase
     public function tearDown()
     {
         WP_Mock::tearDown();
+    }
+
+    /**
+     * Test that enqueueRenderApps adds an action to "plugins_loaded"
+     *
+     * @test
+     */
+    public function enqueueAppsAddsCorrectAction()
+    {
+        WP_Mock::expectActionAdded(
+            'plugins_loaded',
+            [$this->plugin->apps, 'enqueue'],
+            100
+        );
+
+        $this->plugin->enqueueApps();
     }
 
     /**
@@ -60,18 +76,18 @@ class PluginTest extends TestCase
     }
 
     /**
-     * Test that registerRenderApps adds an action to "plugins_loaded"
+     * Test that registerTaxonomy adds an action to "plugins_loaded"
      *
      * @test
      */
-    public function registerRenderAppsAddsCorrectAction()
+    public function registerTaxonomyAddsCorrectAction()
     {
         WP_Mock::expectActionAdded(
-            'plugins_loaded',
-            [$this->plugin->apps, 'register'],
+            'init',
+            [$this->plugin->taxonomy, 'register'],
             100
         );
 
-        $this->plugin->registerApps();
+        $this->plugin->registerTaxonomy();
     }
 }
